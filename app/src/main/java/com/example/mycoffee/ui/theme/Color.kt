@@ -1,4 +1,4 @@
-package com.example.mycoffee.ui.theme
+package com.example.mycoffeeapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -9,3 +9,11 @@ val Pink80 = Color(0xFFEFB8C8)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
+
+val CoffeeBrown = Color(0xFFC47B4D)
+val CreamBeige = Color(0xFFEBD4C6)
+val CharcoalGrey = Color(0xFF313131)
+val LightGray = Color(0xFFE1E1E1)
+val IvoryWhite = Color(0xFFF7F0EB)
+val LightBrown = Color(0xFFC67C4E)
+
