@@ -51,9 +51,9 @@ fun WelcomeScreen(navController: NavHostController) {
             Text(
                 text = "Fall in Love with Coffee in Blissful Delight!",
                 color = Color.White,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.SemiBold,
                 fontSize = 28.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center, lineHeight = 30.sp
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -71,7 +71,7 @@ fun WelcomeScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(40.dp))
 
             Button(
-                onClick = {navController.navigate(Routes.ProductScreen)},
+                onClick = {navController.navigate(Routes.HomeScreen)},
                 modifier = Modifier
                     .fillMaxWidth()
                     .size(50.dp),

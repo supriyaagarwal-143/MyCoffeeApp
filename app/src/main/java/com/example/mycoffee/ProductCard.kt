@@ -30,19 +30,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.mycoffee.navigation.Routes
 import com.example.mycoffeeapp.ui.theme.CoffeeBrown
 import com.example.mycoffeeapp.ui.theme.LightBrown
 import com.example.mycoffeeapp.ui.theme.LightGray
 
 @Composable
-fun Product(product: Product, modifier: Modifier) {
+fun Product(product: Product, modifier: Modifier, navController: NavController) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        onClick = {navController.navigate(Routes.ProductDetailScreen(product))}
     ) {
         Column(
             modifier = Modifier

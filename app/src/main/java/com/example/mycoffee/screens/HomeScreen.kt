@@ -115,10 +115,7 @@ fun HomeScreen(navController: NavHostController) {
                 Product(6, "Iced Mocha", "Refreshing and rich", R.drawable.coffee_4, 1.80),
             )
 
-            ProductGrid(products) {
-                Text(text ="1")
-                Text(text ="2")
-            }
+            ProductGrid(products, navController)
 
         }
 

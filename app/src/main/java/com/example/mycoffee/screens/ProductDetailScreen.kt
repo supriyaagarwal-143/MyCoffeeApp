@@ -5,6 +5,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.mycoffee.Product
 import com.example.mycoffee.R
 import com.example.mycoffeeapp.ui.theme.CoffeeBrown
 import com.example.mycoffeeapp.ui.theme.IvoryWhite
@@ -47,14 +49,13 @@ import com.example.mycoffeeapp.ui.theme.LightBrown
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ProductDetailScreen(navController: NavHostController) {
-
+fun ProductDetailScreen(navController: NavHostController, product: Product) {
     Scaffold(
         modifier = Modifier.background(color = IvoryWhite),
-        topBar = { TopBar() },
-        bottomBar = { BottomBar() }
+        topBar = { TopBar(navController) },
+        bottomBar = { BottomBar(product) }
     ) { innerpaddig ->
-        MiddleContent(innerpaddig)
+        MiddleContent(innerpaddig, product)
     }
 
 }
@@ -62,7 +63,7 @@ fun ProductDetailScreen(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopBar() {
+private fun TopBar(navController: NavHostController) {
     TopAppBar(
         title = {
             Text(
@@ -73,23 +74,26 @@ private fun TopBar() {
                 textAlign = TextAlign.Center
             )
         }, navigationIcon = {
-            Icon(
+            Icon(modifier = Modifier.clickable(
+                onClick = { navController.navigateUp() }
+            ),
                 painter = painterResource(R.drawable.regular_outline_arrow_left),
                 contentDescription = "go back"
             )
         }, actions = {
             Icon(
                 painter = painterResource(R.drawable.regular_outline_heart),
-                contentDescription = "go back",
+                contentDescription = "go back"
+
             )
         }
     )
 }
 
 @Composable
-private fun BottomBar() {
+private fun BottomBar(product: Product) {
     val context = LocalContext.current
-    BottomAppBar {
+    BottomAppBar (modifier = Modifier.padding(horizontal = 10.dp)){
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -105,7 +109,7 @@ private fun BottomBar() {
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "\u20B93.8",
+                    text = "\u20B9${product.price}",
                     color = LightBrown, fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -131,7 +135,7 @@ private fun BottomBar() {
 }
 
 @Composable
-private fun MiddleContent(innerpaddig: PaddingValues) {
+private fun MiddleContent(innerpaddig: PaddingValues, product: Product) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -147,7 +151,7 @@ private fun MiddleContent(innerpaddig: PaddingValues) {
                 .fillMaxWidth()
                 .height(200.dp)
                 .clip(RoundedCornerShape(10.dp)),
-            painter = painterResource(R.drawable.coffee_2),
+            painter = painterResource(product.image),
             contentDescription = "coffee",
             contentScale = ContentScale.Crop
         )
@@ -155,7 +159,7 @@ private fun MiddleContent(innerpaddig: PaddingValues) {
         Spacer(modifier = Modifier.height(15.dp))
 
         Text(
-            text = "Espresso",
+            text = product.title,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp,
             color = Color.DarkGray
@@ -196,7 +200,7 @@ private fun MiddleContent(innerpaddig: PaddingValues) {
         Spacer(modifier = Modifier.height(10.dp))
 
         Text(
-            text = "Strong and Rich..",
+            text = product.des,
             fontWeight = FontWeight.SemiBold,
             fontSize = 14.sp,
             color = Color.DarkGray.copy(alpha = 0.6f)

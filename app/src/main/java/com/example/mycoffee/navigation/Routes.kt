@@ -1,12 +1,13 @@
 package com.example.mycoffee.navigation
+import com.example.mycoffee.Product
 import kotlinx.serialization.Serializable
 
 sealed class Routes {
     @Serializable
     object WelcomeScreen : Routes()
     @Serializable
-    object ProductScreen : Routes()
+    object HomeScreen : Routes()
     @Serializable
-    object ProductDetailScreen : Routes()
+    data class ProductDetailScreen(val product: Product) : Routes()
 
 }

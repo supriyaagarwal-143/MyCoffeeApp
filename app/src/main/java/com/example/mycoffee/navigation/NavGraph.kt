@@ -5,9 +5,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.example.mycoffee.Product
+import com.example.mycoffee.ProductType
 import com.example.mycoffee.screens.ProductDetailScreen
 import com.example.mycoffee.screens.WelcomeScreen
 import com.example.mycoffee.screens.HomeScreen
+import kotlin.reflect.typeOf
 
 @Preview
 @Composable
@@ -20,10 +24,16 @@ fun NavGraph() {
     ) {
 
         composable<Routes.WelcomeScreen> { WelcomeScreen(navController) }
-        composable<Routes.ProductDetailScreen> { ProductDetailScreen(navController) }
+        composable<Routes.ProductDetailScreen>(
+            typeMap = mapOf(typeOf<Product>() to ProductType) // This fixes the empty typeMap {} error
+        ) { backStackEntry ->
+            val args = backStackEntry.toRoute<Routes.ProductDetailScreen>()
+            ProductDetailScreen(navController, args.product)
+        }
 
-        composable<Routes.ProductScreen> { HomeScreen(navController) }
-
+        composable<Routes.HomeScreen> {
+            HomeScreen(navController)
+        }
 
     }
 
