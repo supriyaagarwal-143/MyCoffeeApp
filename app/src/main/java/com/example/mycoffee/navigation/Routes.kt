@@ -7,6 +7,9 @@ sealed class Routes {
     object WelcomeScreen : Routes()
     @Serializable
     object HomeScreen : Routes()
+
+    @Serializable
+    object CartScreen: Routes()
     @Serializable
     data class ProductDetailScreen(val product: Product) : Routes()
 

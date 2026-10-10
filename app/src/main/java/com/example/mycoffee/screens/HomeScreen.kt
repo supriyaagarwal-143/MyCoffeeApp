@@ -40,7 +40,7 @@ import com.example.mycoffee.actionbars.BottomNavBar
 @Composable
 fun HomeScreen(navController: NavHostController) {
     Scaffold(
-        bottomBar = { BottomNavBar() }
+        bottomBar = { BottomNavBar(navController) }
     ) { innerPadding ->
         Box(
             modifier = Modifier

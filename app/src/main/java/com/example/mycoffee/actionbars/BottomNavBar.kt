@@ -1,29 +1,29 @@
 package com.example.mycoffee.actionbars
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
 import com.example.mycoffee.R
+import com.example.mycoffee.navigation.Routes
 import com.example.mycoffeeapp.ui.theme.LightBrown
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun BottomNavBar() {
+fun BottomNavBar(navController: NavHostController) {
     val navItemsList = listOf<NavItems>(
-        NavItems("Home", R.drawable.regular_outline_home),
-        NavItems("Cart", R.drawable.regular_outline_bag),
-        NavItems("Favourites", R.drawable.regular_outline_heart),
-        NavItems("Profile", R.drawable.outline_account_circle_24)
+        NavItems("Home", R.drawable.regular_outline_home, Routes.HomeScreen),
+        NavItems("Cart", R.drawable.regular_outline_bag, Routes.CartScreen),
+        NavItems("Favourites", R.drawable.regular_outline_heart, Routes.HomeScreen),
+        NavItems("Profile", R.drawable.outline_account_circle_24, Routes.HomeScreen)
     )
 
     NavigationBar (containerColor = Color.White){
@@ -44,7 +44,9 @@ fun BottomNavBar() {
                         tint = LightBrown
                         )
                 },
-                onClick = { },
+                onClick = {
+                    navController.navigate(item.route)
+                },
             )
         }
 
@@ -53,4 +55,4 @@ fun BottomNavBar() {
 
 }
 
-data class NavItems(val title: String, val iconId: Int)
+data class NavItems(val title: String, val iconId: Int, val route: Routes)
