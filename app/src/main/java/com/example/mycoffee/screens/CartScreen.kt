@@ -1,8 +1,10 @@
 package com.example.mycoffee.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,14 +19,22 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -124,19 +134,26 @@ fun CartScreen(navController: NavHostController) {
 
 @Composable
 fun PaymentCard(amount: Double) {
+    val dropDownList = listOf("Online", "Cash")
+    val iconList = listOf(R.drawable.mobile_banking, R.drawable.wallet)
+    var state by remember { mutableStateOf(false) }
+    var paymentMode by remember { mutableStateOf("Online") }
+    var icon by remember { mutableIntStateOf(R.drawable.mobile_banking) }
+
     Card(
-        modifier = Modifier.fillMaxWidth()) {
+        modifier = Modifier.fillMaxWidth()
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(24.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     modifier = Modifier.size(30.dp),
-                    painter = painterResource(R.drawable.mobile_banking),
+                    painter = painterResource(icon),
                     contentDescription = "banking", colorFilter = ColorFilter.tint(LightBrown)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -147,7 +164,7 @@ fun PaymentCard(amount: Double) {
                 ) {
                     Column {
                         Text(
-                            text = "Online",
+                            text = paymentMode,
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
                         )
@@ -159,10 +176,44 @@ fun PaymentCard(amount: Double) {
                         )
                     }
 
-                    Icon(modifier = Modifier.size(20.dp),
-                        painter = painterResource(R.drawable.regular_outline_arrow_down),
-                        contentDescription = "arrow down"
-                    )
+                    Box {
+                        Icon(
+                            modifier = Modifier
+                                .size(20.dp)
+                                .clickable(onClick = { state = true }),
+                            painter = painterResource(R.drawable.regular_outline_arrow_down),
+                            contentDescription = "arrow down"
+                        )
+
+                        DropdownMenu(
+                            expanded = state,
+                            onDismissRequest = { state = false },
+                        ) {
+                            dropDownList.forEachIndexed { index, item ->
+                                DropdownMenuItem(
+                                    modifier = Modifier
+                                        .background(
+                                            color = if (paymentMode == item)
+                                                LightBrown.copy(alpha = 0.1f)
+                                            else Color.Transparent
+                                        ),
+                                    text = { Text(text = item, fontWeight = FontWeight.SemiBold) },
+                                    onClick = {
+                                        paymentMode = item
+                                        icon = iconList[index]
+                                        state = false
+                                    }, leadingIcon = {
+                                        Icon(
+                                            modifier = Modifier.size(26.dp),
+                                            painter = painterResource(iconList[index]),
+                                            contentDescription = "icon", tint = LightBrown
+                                        )
+                                    }
+                                )
+                            }
+                        }
+                    }
+
                 }
             }
 

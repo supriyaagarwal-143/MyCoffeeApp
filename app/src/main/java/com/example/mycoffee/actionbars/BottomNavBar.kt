@@ -11,15 +11,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import com.example.mycoffee.R
 import com.example.mycoffee.navigation.Routes
 import com.example.mycoffeeapp.ui.theme.LightBrown
 
 @Composable
 fun BottomNavBar(navController: NavHostController) {
-    val navItemsList = listOf<NavItems>(
+    val navItemsList = listOf(
         NavItems("Home", R.drawable.regular_outline_home, Routes.HomeScreen),
         NavItems("Cart", R.drawable.regular_outline_bag, Routes.CartScreen),
         NavItems("Favourites", R.drawable.regular_outline_heart, Routes.HomeScreen),
