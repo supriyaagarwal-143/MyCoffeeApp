@@ -13,6 +13,7 @@ import com.example.mycoffee.screens.FavouriteScreen
 import com.example.mycoffee.screens.ProductDetailScreen
 import com.example.mycoffee.screens.WelcomeScreen
 import com.example.mycoffee.screens.HomeScreen
+import com.example.mycoffee.screens.ProfileScreen
 import kotlin.reflect.typeOf
 
 @Preview
@@ -43,6 +44,10 @@ fun NavGraph() {
 
         composable<Routes.FavScreen> {
             FavouriteScreen(navController)
+        }
+
+        composable<Routes.ProfileScreen> {
+            ProfileScreen(navController)
         }
 
     }

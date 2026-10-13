@@ -21,7 +21,7 @@ fun BottomNavBar(navController: NavHostController) {
         NavItems("Home", R.drawable.regular_outline_home, Routes.HomeScreen),
         NavItems("Cart", R.drawable.regular_outline_bag, Routes.CartScreen),
         NavItems("Favourites", R.drawable.regular_outline_heart, Routes.FavScreen),
-        NavItems("Profile", R.drawable.outline_account_circle_24, Routes.HomeScreen)
+        NavItems("Profile", R.drawable.outline_account_circle_24, Routes.ProfileScreen)
     )
 
     NavigationBar (containerColor = Color.White){
