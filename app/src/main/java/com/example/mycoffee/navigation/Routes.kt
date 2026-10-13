@@ -13,4 +13,7 @@ sealed class Routes {
     @Serializable
     data class ProductDetailScreen(val product: Product) : Routes()
 
+    @Serializable
+    object FavScreen: Routes()
+
 }
